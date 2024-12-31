@@ -1,0 +1,3 @@
+[submodule "inlaze-frontend-challenge"]
+	path = inlaze-frontend-challenge
+	url = git@github.com:lkranl/inlaze-frontend-challenge.git
