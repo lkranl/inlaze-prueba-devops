@@ -1,0 +1,40 @@
+#version: '3.8'
+services:
+  webapp:
+    image: nginx:1.27-alpine # Se especifica la versión
+    ports:
+      - "8080:80"
+    #environment:
+    #  NODE_ENV: "production"
+    #depends_on:
+    #  - database
+    networks:
+      - app_network
+
+  database:
+    image: postgres:17-alpine # Se especifica la versión
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${{ secrets.POSTGRESS_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRESS_PASSWORD
+      POSTGRES_DB: ${{ secrets.POSTGRESS_DB }}
+    ports:
+      - "5432:5432"
+    networks:
+      - app_network
+
+  redis:
+    image: redis
+    command: redis-server --requirepass ${{ secrests.REDIS_PASSWORD }}
+    ports:
+      - "6379:6379"
+    networks:
+      - app_network
+
+volumes:
+  pg_data:
+
+networks:
+  app_network:
+    #driver: bridge
